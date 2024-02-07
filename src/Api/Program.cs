@@ -16,6 +16,12 @@ builder.Services.AddSingleton<DbContext>();
 builder.Services.AddCors();
 builder.Services.AddControllers();
 
+builder.Services.AddMediatR(config =>
+{
+    config.RegisterServicesFromAssembly(typeof(Program).Assembly);
+
+});
+
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
