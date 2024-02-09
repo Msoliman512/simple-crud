@@ -1,6 +1,8 @@
+using Api.Common.Behaviors;
 using Api.DataAccess;
 using Api.Features.Drivers.Repositories.Command;
 using Api.Features.Drivers.Repositories.Query;
+using MediatR;
 using Serilog;
 using WebApi.Helpers;
 
@@ -12,7 +14,10 @@ var logger = new LoggerConfiguration()
     .CreateLogger();
 
 builder.Logging.ClearProviders();
-builder.Logging.AddSerilog(logger);
+//Add support to logging with SERILOG
+builder.Host.UseSerilog((context, configuration) =>
+    configuration.ReadFrom.Configuration(context.Configuration));
+
 
 builder.Services.AddSingleton<DbContext>();
 builder.Services.AddCors();
@@ -23,7 +28,8 @@ builder.Services.AddControllers();
 builder.Services.AddMediatR(config =>
 {
     config.RegisterServicesFromAssembly(typeof(Program).Assembly);
-
+    config.AddBehavior(typeof(IPipelineBehavior<,>), typeof(LoggingPipelineBehavior<,>));
+    config.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
 });
 
 // Add services to the container.
@@ -32,6 +38,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+//Add support to logging request with SERILOG
+app.UseSerilogRequestLogging();
 
 // validate that database and tables exist
 {
