@@ -1,4 +1,6 @@
 using Api.DataAccess;
+using Api.Features.Drivers.Repositories.Command;
+using Api.Features.Drivers.Repositories.Query;
 using Serilog;
 using WebApi.Helpers;
 
@@ -14,6 +16,8 @@ builder.Logging.AddSerilog(logger);
 
 builder.Services.AddSingleton<DbContext>();
 builder.Services.AddCors();
+builder.Services.AddScoped<IDriverQueryRepository, DriverQueryRepository>();
+builder.Services.AddScoped<IDriverCommandRepository, DriverCommandRepository>();
 builder.Services.AddControllers();
 
 builder.Services.AddMediatR(config =>
