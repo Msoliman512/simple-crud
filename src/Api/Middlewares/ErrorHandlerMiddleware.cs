@@ -1,4 +1,5 @@
 ﻿using Api.Middlewares;
+using FluentValidation;
 
 namespace WebApi.Helpers;
 
@@ -24,7 +25,7 @@ public class ErrorHandlerMiddleware(RequestDelegate next, ILogger<ErrorHandlerMi
         {
             var response = context.Response;
             response.ContentType = "application/json";
-
+            string result;
             switch (ex)
             {
                 case CustomException e:
@@ -35,6 +36,19 @@ public class ErrorHandlerMiddleware(RequestDelegate next, ILogger<ErrorHandlerMi
                     // not found exception
                     response.StatusCode = (int)HttpStatusCode.NotFound;
                     break;
+                case ValidationException e:
+                    // Fluent Validation exception
+                {
+                    response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    var errors = new List<string>();
+                    foreach (var error in e.Errors)
+                    {
+                        errors.Add(error.ErrorMessage);
+                    }
+                    result = JsonSerializer.Serialize(new { message = "Validation failed", errors });
+                    await response.WriteAsync(result);
+                    return;
+                }
                 default:
                     // unhandled exception
                     _logger.LogError(ex, ex.Message);
@@ -42,7 +56,7 @@ public class ErrorHandlerMiddleware(RequestDelegate next, ILogger<ErrorHandlerMi
                     break;
             }
 
-            var result = JsonSerializer.Serialize(new { message = ex.Message });
+             result = JsonSerializer.Serialize(new { message = ex.Message });
             await response.WriteAsync(result);
         }
     }
