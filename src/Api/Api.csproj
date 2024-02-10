@@ -9,20 +9,21 @@
 
     <ItemGroup>
         <PackageReference Include="Dapper" Version="2.1.28" />
+        <PackageReference Include="FluentValidation" Version="11.9.0" />
         <PackageReference Include="MediatR" Version="12.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.1"/>
         <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.1" />
         <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
         <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
         <PackageReference Include="Serilog.Settings.Configuration" Version="8.0.1-dev-00561" />
+        <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1" />
+        <PackageReference Include="Serilog.Sinks.File" Version="5.0.1-dev-00972" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
     </ItemGroup>
 
     <ItemGroup>
       <Folder Include="Db\" />
-      <Folder Include="Features\Drivers\Commands\" />
       <Folder Include="Features\Drivers\Queries\" />
-      <Folder Include="Features\Drivers\Services\" />
     </ItemGroup>
 
 </Project>
