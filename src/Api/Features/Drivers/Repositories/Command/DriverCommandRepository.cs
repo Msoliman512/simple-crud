@@ -28,7 +28,7 @@ public class DriverCommandRepository(DbContext context, ILogger<DriverCommandRep
             }
         }
 
-        public async Task UpdateDriver(Driver driver)
+        public async Task<int> UpdateDriver(Driver driver)
         {
             const string query = @"
                 UPDATE Drivers
@@ -39,7 +39,8 @@ public class DriverCommandRepository(DbContext context, ILogger<DriverCommandRep
             {
                 using (var connection = context.CreateConnection())
                 {
-                    await connection.ExecuteAsync(query, driver);
+                    var driverId = await connection.ExecuteAsync(query, driver);
+                    return driverId;
                 }
             }
             catch (Exception ex)
@@ -49,7 +50,7 @@ public class DriverCommandRepository(DbContext context, ILogger<DriverCommandRep
             }
         }
 
-        public async Task DeleteDriver(int id)
+        public async Task<bool> DeleteDriver(int id)
         {
             const string query = "DELETE FROM Drivers WHERE Id = @Id;";
 
@@ -57,7 +58,8 @@ public class DriverCommandRepository(DbContext context, ILogger<DriverCommandRep
             {
                 using (var connection = context.CreateConnection())
                 {
-                    await connection.ExecuteAsync(query, new { Id = id });
+                    var rowsAffected = await connection.ExecuteAsync(query, new { Id = id });
+                    return rowsAffected > 0; 
                 }
             }
             catch (Exception ex)

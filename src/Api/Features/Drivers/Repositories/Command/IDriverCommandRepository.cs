@@ -5,6 +5,6 @@ namespace Api.Features.Drivers.Repositories.Command;
 public interface IDriverCommandRepository
 {
     Task<int> CreateDriver(Driver driver);
-    Task UpdateDriver(Driver driver);
-    Task DeleteDriver(int id);  
+    Task<int> UpdateDriver(Driver driver);
+    Task<bool> DeleteDriver(int id);  
 }
