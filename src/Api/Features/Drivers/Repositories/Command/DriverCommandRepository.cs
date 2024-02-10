@@ -28,7 +28,7 @@ public class DriverCommandRepository(DbContext context, ILogger<DriverCommandRep
             }
         }
 
-        public async Task<int> UpdateDriver(Driver driver)
+        public async Task<bool> UpdateDriver(Driver driver)
         {
             const string query = @"
                 UPDATE Drivers
@@ -39,8 +39,9 @@ public class DriverCommandRepository(DbContext context, ILogger<DriverCommandRep
             {
                 using (var connection = context.CreateConnection())
                 {
-                    var driverId = await connection.ExecuteAsync(query, driver);
-                    return driverId;
+                    var rowsAffected = await connection.ExecuteAsync(query, driver);
+                    return rowsAffected > 0; 
+
                 }
             }
             catch (Exception ex)
