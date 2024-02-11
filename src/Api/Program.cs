@@ -43,7 +43,10 @@ builder.Services.AddScoped<DriverValidationService>();
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Api.xml")); // Include XML comments
+});
 
 var app = builder.Build();
 
