@@ -1,4 +1,5 @@
 ﻿using Api.Features.Drivers.Commands;
+using Api.Features.Drivers.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -44,5 +45,13 @@ public sealed class DriversController(ILogger<DriversController> logger, ISender
         return Ok(createRandomBulkDriversResponse);
     }
 
+    [AllowAnonymous]
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult<GetDriversResponse>> Get(GetDriversRequest request)
+    {
+        var getDriversResponse = await sender.Send(request);
+        return Ok(getDriversResponse);
+    }
 
 }
