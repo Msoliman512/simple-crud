@@ -25,13 +25,19 @@ public sealed class UpdateDriverValidator : AbstractValidator<UpdateDriverReques
         RuleFor(x => x.Id)
             .GreaterThan(0)
             .WithMessage("Id must be greater than zero.");
+        
         RuleFor(x => x.FirstName)
             .NotEmpty()
-            .WithMessage("First Name must not be empty.");
+            .WithMessage("First Name must not be empty.")
+            .MaximumLength(Constants.NamesMaxLength)
+            .WithMessage("First Name must not exceed 50 characters.");
             
         RuleFor(x => x.LastName)
             .NotEmpty()
-            .WithMessage("Last Name must not be empty.");
+            .WithMessage("Last Name must not be empty.")
+            .MaximumLength(Constants.NamesMaxLength)
+            .WithMessage("Last Name must not exceed 50 characters.");
+        
         RuleFor(x => x.Email)
             .NotNull()
             .WithMessage("Email must not be empty.")
