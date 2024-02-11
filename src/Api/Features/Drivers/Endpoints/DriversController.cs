@@ -9,6 +9,11 @@ namespace Api.Features.Drivers.Endpoints;
 [Route("drivers")]
 public sealed class DriversController(ILogger<DriversController> logger, ISender sender) : ControllerBase
 {
+    /// <summary>
+    /// Create a new driver.
+    /// </summary>
+    /// <param name="request">The request to create a new driver.</param>
+    /// <returns>The created driver Id.</returns>
     [AllowAnonymous]
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -18,6 +23,11 @@ public sealed class DriversController(ILogger<DriversController> logger, ISender
         return Ok(createResponse);
     }
     
+    /// <summary>
+    /// Update an existing driver.
+    /// </summary>
+    /// <param name="request">The request to update an existing driver.</param>
+    /// <returns>true if updated successfully and false otherwise.</returns>
     [AllowAnonymous]
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -27,6 +37,12 @@ public sealed class DriversController(ILogger<DriversController> logger, ISender
         return Ok(updateResponse);
     }
 
+    
+    /// <summary>
+    /// Delete a driver.
+    /// </summary>
+    /// <param name="request">The request to delete a driver by it's Id.</param>
+    /// <returns>true if deleted successfully and false otherwise.</returns>
     [AllowAnonymous]
     [HttpDelete]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -36,6 +52,11 @@ public sealed class DriversController(ILogger<DriversController> logger, ISender
         return Ok(deleteResponse);
     }
     
+    /// <summary>
+    /// Bulk random drivers insertion 
+    /// </summary>
+    /// <param name="request">The request to Add bulk of random drivers.</param>
+    /// <returns>return the number of added drivers.</returns>
     [AllowAnonymous]
     [HttpPost("random-bulk-seed")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -45,6 +66,11 @@ public sealed class DriversController(ILogger<DriversController> logger, ISender
         return Ok(createRandomBulkDriversResponse);
     }
 
+    /// <summary>
+    /// Get drivers paginated list.
+    /// </summary>
+    /// <param name="request">The Id of the driver.</param>
+    /// <returns>Paginated list of the drivers with ability to filter and sort.</returns>
     [AllowAnonymous]
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]

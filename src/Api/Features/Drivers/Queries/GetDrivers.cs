@@ -5,17 +5,38 @@ using MediatR;
 
 namespace Api.Features.Drivers.Queries;
 
+/// <summary>
+/// Represents the request for getting drivers.
+/// </summary>
 public sealed class GetDriversRequest : IRequest<GetDriversResponse>
 {
+    /// <summary>Pagination: page index default value is 1</summary>
     public int PageIndex { get; init; } = 1;
+    /// <summary>Pagination: page size default value is 10</summary>
     public int PageSize { get; init; } = 10;
-    public string? Keyword { get; init; }
+    /// <summary>Search keyword</summary>
+    public string? Keyword { get; init; }   
+    /// <summary>Column name to sort by</summary>
     public string? OrderByColumn { get; init; }
+    /// <summary>Sort direction; null no search required, true Ascending, and false Descending</summary>
     public bool? OrderBy { get; init; } 
 }
 
+/// <summary>
+/// 
+/// </summary>
+/// <param name="TotalCount">total count of drivers</param>
+/// <param name="Items"> fetched items</param>
 public sealed record GetDriversResponse(int TotalCount, GetDriverItem[] Items);
 
+/// <summary>
+/// 
+/// </summary>
+/// <param name="Id">driver Id</param>
+/// <param name="FirstName">driver first name</param>
+/// <param name="LastName">driver last name</param>
+/// <param name="Email">driver email</param>
+/// <param name="PhoneNumber">driver phone number</param>
 public sealed record GetDriverItem(int Id, string FirstName, string LastName, string Email, string PhoneNumber);
 public sealed class GetDriversValidator : AbstractValidator<GetDriversRequest>
 {

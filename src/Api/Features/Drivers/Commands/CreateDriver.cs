@@ -6,15 +6,33 @@ using FluentValidation;
 using MediatR;
 
 namespace Api.Features.Drivers.Commands;
-
+/// <summary>
+/// Represents the request for creating a driver.
+/// </summary>
 public sealed class CreateDriverRequest : IRequest<CreateDriverResponse>
 {
+    /// <summary>
+    /// The first name of the driver.
+    /// </summary>
     public required string FirstName { get; init; }
+    /// <summary>
+    /// The last name of the driver.
+    /// </summary>
     public required string LastName { get; init; }
+    /// <summary>
+    /// The email of the driver.
+    /// </summary>
     public required string Email { get; init; }
+    /// <summary>
+    /// The phone number of the driver.
+    /// </summary>
     public string? PhoneNumber { get; init; }
 }
 
+/// <summary>
+/// Represents the response for creating a driver.
+/// </summary>
+/// <param name="Id">id of the added driver</param>
 public sealed record CreateDriverResponse(int Id);
 
 public sealed class CreateDriverValidator : AbstractValidator<CreateDriverRequest>
