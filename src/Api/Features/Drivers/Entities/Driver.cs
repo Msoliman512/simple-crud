@@ -2,7 +2,7 @@
 
 public sealed class Driver
 {
-    private Driver() { }
+    public Driver() { }
 
     public int Id { get; init; }
 
@@ -16,16 +16,16 @@ public sealed class Driver
     
     public static Driver CreateInstance
     (
-        int id,
-        string firstName,
-        string lastName ,
-        string email ,
+        int? id = null,
+        string? firstName = null,
+        string? lastName = null ,
+        string? email = null ,
         string? phoneNumber = null
     )
     {
         var instance = new Driver
         {
-            Id = id,
+            Id = id.GetValueOrDefault(),
             FirstName = firstName,
             LastName = lastName,
             Email = email,

@@ -1,5 +1,6 @@
 ﻿using Api.DataAccess;
 using Api.Features.Drivers.Entities;
+using Bogus;
 using Dapper;
 
 namespace Api.Features.Drivers.Repositories.Command;
@@ -67,6 +68,35 @@ public class DriverCommandRepository(DbContext context, ILogger<DriverCommandRep
             {
                 logger.LogError(ex, "Error occurred while deleting driver");
                 throw; 
+            }
+        }
+        
+        public async Task<int> SeedRandomDrivers(int count)
+        {
+            const string query = @"
+        INSERT INTO Drivers (FirstName, LastName, Email, PhoneNumber)
+        VALUES (@FirstName, @LastName, @Email, @PhoneNumber);";
+
+            try
+            {
+                using (var connection = context.CreateConnection())
+                {
+                    var driverFakerConfig = new Faker<Driver>()
+                        .RuleFor(x => x.FirstName, f => f.Name.FirstName())
+                        .RuleFor(x => x.LastName, f => f.Name.LastName())
+                        .RuleFor(x => x.Email, f => f.Internet.Email())
+                        .RuleFor(x => x.PhoneNumber, f => f.Phone.PhoneNumber("###########"));
+                        
+                    var drivers = driverFakerConfig.Generate(count);
+
+                    // Execute the query with parameters for all drivers at once
+                    return await connection.ExecuteAsync(query, drivers);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error occurred while seeding random drivers");
+                throw;
             }
         }
     

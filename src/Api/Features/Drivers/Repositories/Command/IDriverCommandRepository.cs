@@ -6,5 +6,6 @@ public interface IDriverCommandRepository
 {
     Task<int> CreateDriver(Driver driver);
     Task<bool> UpdateDriver(Driver driver);
-    Task<bool> DeleteDriver(int id);  
+    Task<bool> DeleteDriver(int id);
+    Task<int> SeedRandomDrivers(int count);
 }
