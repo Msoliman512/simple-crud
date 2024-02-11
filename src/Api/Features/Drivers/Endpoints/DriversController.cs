@@ -53,5 +53,20 @@ public sealed class DriversController(ILogger<DriversController> logger, ISender
         var getDriversResponse = await sender.Send(request);
         return Ok(getDriversResponse);
     }
+    
+    /// <summary>
+    /// Get driver by ID.
+    /// </summary>
+    /// <param name="id">The Id of the driver to get.</param>
+    /// <returns>The driver detailed information with more post calculated fields ex: AlphabetizedFullName.</returns>
+    [AllowAnonymous]
+    [HttpGet("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult<GetDriverByIdResponse>> GetById(int id)
+    {
+        var request = new GetDriverByIdRequest { Id = id };
+        var getDriverByIdResponse = await sender.Send(request);
+        return Ok(getDriverByIdResponse);
+    }
 
 }
