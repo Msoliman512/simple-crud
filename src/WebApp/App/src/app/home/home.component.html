@@ -8,18 +8,42 @@
           </div>
           <div class="col-sm-6">
             <button class="btn btn-success" (click)="AddDriver()">
-              <i class='fas fa-plus-circle'></i><span> ADD</span>
+              <i class='fa fa-user-plus'></i><span>Add</span>
             </button>
+              <button class="btn btn-success" >
+                  <i class='fa fa-users'></i><span>Add Random bulk</span>
+              </button>
           </div>
         </div>
       </div>
+        <!-- Add search controls -->
+        <div class="pagination-search-container">
+            <div class="search">
+                <input type="text" [(ngModel)]="model.Keyword" (input)="onSearch()" placeholder="Search">
+                <span class="search-icon"><i class="fas fa-search"></i></span>
+            </div>
+            <button type="button" (click)="reset()" class="btn btn-secondary reset-btn"><i class="fas fa-sync-alt"></i> Reset</button>
+
+        </div>
       <table class="table table-striped table-hover table-bordered table-content">
         <thead>
         <tr class="center-align">
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Email</th>
-          <th>Phone Number</th>
+            <th (click)="onSort('FirstName')">
+                First Name
+                <i class="fas" [ngClass]="{'fa-sort': model.OrderByColumn !== 'FirstName', 'fa-sort-up': model.OrderByColumn === 'FirstName' && model.OrderBy === true, 'fa-sort-down': model.OrderByColumn === 'FirstName' && model.OrderBy === false}" ></i>
+            </th>
+            <th (click)="onSort('LastName')">
+                Last Name
+                <i class="fas" [ngClass]="{'fa-sort': model.OrderByColumn !== 'LastName', 'fa-sort-up': model.OrderByColumn === 'LastName' && model.OrderBy === true, 'fa-sort-down': model.OrderByColumn === 'LastName' && model.OrderBy === false}"></i>
+            </th>
+            <th (click)="onSort('Email')">
+                Email
+                <i class="fas" [ngClass]="{'fa-sort': model.OrderByColumn !== 'Email', 'fa-sort-up': model.OrderByColumn === 'Email' && model.OrderBy === true, 'fa-sort-down': model.OrderByColumn === 'Email' && model.OrderBy === false}"></i>
+            </th>
+            <th (click)="onSort('PhoneNumber')">
+                Phone Number
+                <i class="fas" [ngClass]="{'fa-sort': model.OrderByColumn !== 'PhoneNumber', 'fa-sort-up': model.OrderByColumn === 'PhoneNumber' && model.OrderBy === true, 'fa-sort-down': model.OrderByColumn === 'PhoneNumber' && model.OrderBy === false}"></i>
+            </th>
         </tr>
         </thead>
         <tbody>
@@ -39,6 +63,23 @@
         </tr>
         </tbody>
       </table>
+        <!-- Pagination controls -->
+        <div class="pagination-container">
+            <div class="pagination">
+                <select [(ngModel)]="model.PageSize" (change)="onPageSizeChange()">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <!-- Add more options as needed -->
+                </select>
+                <button [disabled]="model.PageIndex === 1" (click)="onPageChange(model.PageIndex - 1)" class="pagination-btn">Previous</button>
+                <div class="page-number">{{ model.PageIndex }}</div>
+                <button [disabled]="driversList.length < model.PageSize" (click)="onPageChange(model.PageIndex + 1)" class="pagination-btn">Next</button>
+            </div>
+        </div>
     </div>
   </div>
 </div>
+
+

@@ -42,13 +42,15 @@ export class HomeComponent implements OnInit {
   driversList: any[] = [];
   model = {
     PageIndex: 1,
-    PageSize: 10,
+    PageSize: 5,
     Keyword: null,  //search keyword
-    OrderByColumn: null, // column name
-    OrderBy: null //bool
+    OrderByColumn: null as string | null, // column name
+    OrderBy: null as boolean | null //bool
   };
-  constructor(private router: Router, private modalService: NgbModal,
-              private toastr: ToastrService, private httpProvider : HttpProviderService) { }
+  constructor(private router: Router,
+              private modalService: NgbModal,
+              private toastr: ToastrService,
+              private httpProvider : HttpProviderService) { }
 
   ngOnInit(): void {
     this.getAllDrivers(this.model );
@@ -72,9 +74,41 @@ export class HomeComponent implements OnInit {
         }
       });
   }
+  onPageChange(pageIndex: number) {
+    this.model.PageIndex = pageIndex;
+    this.getAllDrivers(this.model);
+  }
+  onPageSizeChange() {
+    this.model.PageIndex = 1; // Reset the page index to 1 when changing page size
+    this.getAllDrivers(this.model);
+  }
+  onSort(columnName: string) {
+    if (this.model.OrderByColumn === columnName) {
+      this.model.OrderBy = this.model.OrderBy === true ? false : true;
+    } else {
+      this.model.OrderByColumn = columnName;
+      this.model.OrderBy = true;
+    }
+    this.getAllDrivers(this.model);
+  }
+  reset() {
+    // Reset all settings to their default values
+    this.model.PageSize = 5; // Set default page size
+    this.model.PageIndex = 1; // Set default page index
+    this.model.Keyword = null; // Reset search keyword
+    this.model.OrderByColumn = null; // Reset sorting column
+    this.model.OrderBy = null; // Reset sorting order
+    this.getAllDrivers(this.model); // Refresh data
+  }
 
+  onSearch() {
+    this.getAllDrivers(this.model);
+  }
   AddDriver() {
     this.router.navigate(['AddDriver']);
+  }
+  BulkAddDrivers() {
+
   }
 
   deleteDriverConfirmation(driver: any) {
@@ -90,13 +124,35 @@ export class HomeComponent implements OnInit {
   deleteDriver(driver: any) {
     this.httpProvider.deleteDriver(driver.id).subscribe((data : any) => {
         if (data != null && data.body != null) {
-          var resultData = data.body;
-          if (resultData != null && resultData.isSuccess) {
-            this.toastr.success(resultData.message);
+          var resultData = data;
+          if (resultData != null && resultData.body.result == true) {
+            this.toastr.success("Driver deleted successfully");
             this.getAllDrivers(this.model);
           }
         }
       },
-      (error : any) => {});
+      (error : any) => {
+        console.log(error);
+        this.toastr.error("Error occurred while deleting driver");
+      });
   }
+
+  BulkRandomDriversInsertion(count: any) {
+    this.httpProvider.CreateRandomDriversBulk(count).subscribe((data : any) => {
+          debugger
+          if (data != null && data.body != null) {
+            var resultData = data;
+            if (resultData != null && resultData.body.result > 0) {
+              this.toastr.success("Driver deleted successfully");
+              this.getAllDrivers(this.model);
+            }
+          }
+        },
+        (error : any) => {
+          debugger
+          console.log(error);
+          this.toastr.error("Error occurred while Adding Random drivers Bulk");
+        });
+  }
+
 }

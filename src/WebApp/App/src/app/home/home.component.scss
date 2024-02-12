@@ -60,3 +60,115 @@
     }
   }
 }
+
+.pagination-search-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px; /* Adjust as needed */
+}
+
+.search {
+  position: relative;
+}
+
+.search input[type="text"] {
+  padding: 10px 20px; /* Adjust padding */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  width: 300px; /* Adjust width as needed */
+}
+
+.search input[type="text"]:focus {
+  outline: none;
+  border-color: #007bff; /* Adjust focus color */
+}
+
+.search .search-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.reset-btn {
+  background-color: darkorange; /* Change background color to red */
+  color: white; /* Change text color to white */
+  border: none;
+  margin-left: 10px; /* Adjust spacing between search input and reset button */
+  font-size: 12px; /* Adjust font size */
+  padding: 6px 6px; /* Adjust padding */
+}
+
+.reset-btn i {
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+}
+
+.page-number {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: orange; /* Change background color to orange */
+  color: #fff;
+  text-align: center;
+  line-height: 30px;
+  font-size: 14px;
+  margin: 10px 10px;
+}
+
+.pagination-btn {
+  background-color: #007bff; /* Adjust as needed */
+  color: #fff;
+  border: none;
+  padding: 6px 12px; /* Adjust padding */
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px; /* Adjust font size */
+}
+
+.pagination-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination-btn:not(:last-child) {
+  margin-right: 0px; /* Adjust as needed */
+}
+
+.pagination select {
+  padding: 3px 6px; /* Adjust padding */
+  margin: 10px;
+  font-size: 14px; /* Adjust font size */
+  border: 2px solid #000;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #333;
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  cursor: pointer;
+}
+
+.pagination select:focus {
+  outline: none;
+  border-color: #007bff; /* Adjust focus color */
+}
+
+.pagination select:hover {
+  background-color: #f8f9fa; /* Adjust hover color */
+}
+
+.fa-sort-up,
+.fa-sort-down {
+  color: blue; /* Set color to blue */
+}
