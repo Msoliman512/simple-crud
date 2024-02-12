@@ -52,7 +52,45 @@ export class WebApiService {
 
       );
   }
+  // Delete call method
+  // Param 1: url
+  delete(url: string): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      observe: "response" as 'body'
+    };
+    return this.httpClient.delete(
+      url,
+      httpOptions
+    )
+      .pipe(
+        map((response: any) => this.ReturnResponseData(response)),
+        catchError(this.handleError)
+      );
+  }
 
+  // Put call method
+  // Param 1: url
+  // Param 2: model
+  put(url: string, model: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      observe: "response" as 'body'
+    };
+    return this.httpClient.put(
+      url,
+      model,
+      httpOptions
+    )
+      .pipe(
+        map((response: any) => this.ReturnResponseData(response)),
+        catchError(this.handleError)
+      );
+  }
   private ReturnResponseData(response: any) {
     return response;
   }
