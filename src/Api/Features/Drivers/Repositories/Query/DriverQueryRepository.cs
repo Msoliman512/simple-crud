@@ -54,7 +54,13 @@ public class DriverQueryRepository(DbContext context, ILogger<DriverQueryReposit
 
                     // Add ORDER BY clause for sorting; null no ordering is required, true ASC, false DESC
                     if (orderByAsc.HasValue && !string.IsNullOrWhiteSpace(orderByColumn))
+                    {
                         query += $" ORDER BY {orderByColumn} {(orderByAsc.Value ? "ASC" : "DESC")}";
+                    }
+                    else // Default ordering by LastEntered DESC
+                    {
+                        query += " ORDER BY Id DESC";
+                    }
 
                     // Add LIMIT and OFFSET for pagination
                     if (pageIndex.HasValue && pageSize.HasValue)
