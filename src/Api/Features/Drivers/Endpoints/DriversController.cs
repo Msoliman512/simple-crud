@@ -60,7 +60,7 @@ public sealed class DriversController(ILogger<DriversController> logger, ISender
     [AllowAnonymous]
     [HttpPost("random-bulk-seed")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<CreateRandomBulkDriversResponse>> CreateRandomBulkDrivers(CreateRandomBulkDriversRequest request)
+    public async Task<ActionResult<CreateRandomBulkDriversResponse>> CreateRandomBulkDrivers([FromForm] CreateRandomBulkDriversRequest request)
     {
         var createRandomBulkDriversResponse = await sender.Send(request);
         return Ok(createRandomBulkDriversResponse);
