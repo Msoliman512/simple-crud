@@ -9,7 +9,7 @@ import { AddDriverComponent } from './add-driver/add-driver.component';
 import { ViewDriverComponent } from './view-driver/view-driver.component';
 import { EditDriverComponent } from './edit-driver/edit-driver.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -17,7 +17,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     HomeComponent,
-    AppComponent
+    AppComponent,
+    AddDriverComponent,
+    ViewDriverComponent,
+    EditDriverComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +30,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NgbModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
   ],
   providers: [
     provideClientHydration()
