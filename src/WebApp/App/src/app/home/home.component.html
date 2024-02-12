@@ -10,9 +10,34 @@
             <button class="btn btn-success" (click)="AddDriver()">
               <i class='fa fa-user-plus'></i><span>Add</span>
             </button>
-              <button class="btn btn-success" >
-                  <i class='fa fa-users'></i><span>Add Random bulk</span>
-              </button>
+            <button class="btn btn-success" (click)="openBulkAddModal(bulkAddModal)">
+              <i class='fa fa-users'></i><span>Add Random bulk</span>
+            </button>
+
+            <!-- Bulk Add Drivers Modal -->
+            <ng-template #bulkAddModal let-modal>
+              <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Bulk Add Drivers</h4>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('cancel')">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <!-- Add your dynamic content or form here -->
+                <form [formGroup]="bulkAddForm" (ngSubmit)="onSubmit()">
+                  <div class="form-group">
+                    <label for="numberOfDrivers" style="font-weight: bold; margin: 5px;">Number of Drivers</label>
+                    <input type="number" class="form-control"  formControlName="numberOfDrivers" style="padding: 5px;" [min]="1"/>
+                    <div *ngIf="f['numberOfDrivers'].errors?.['min'] && f['numberOfDrivers'].touched" class="error-message">Number of drivers must be at least 1</div>
+                    <div *ngIf="f['numberOfDrivers'].errors?.['max']" class="error-message">Number of drivers cannot exceed 10</div>
+                    <div *ngIf="(f['numberOfDrivers'].invalid && f['numberOfDrivers'].touched && f['numberOfDrivers'].errors?.['required']) || (submitted && f['numberOfDrivers'].invalid && f['numberOfDrivers'].errors?.['required'])" class="error-message">Number of drivers is required</div>
+                  </div>
+                  <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Add</button>
+                </form>
+              </div>
+            </ng-template>
+
+
           </div>
         </div>
       </div>

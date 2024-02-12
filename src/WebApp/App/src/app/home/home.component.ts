@@ -1,30 +1,37 @@
-import { Component, Input, OnInit, Type } from '@angular/core';
+import { Component, Input, OnInit, Type, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { HttpProviderService } from '../Service/http-provider.service';
+import {FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'ng-modal-confirm',
   template: `
-  <div class="modal-header">
-    <h5 class="modal-title" id="modal-title">Delete Confirmation</h5>
-    <button type="button" class="btn close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">×</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <p>Are you sure you want to delete?</p>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">CANCEL</button>
-    <button type="button" ngbAutofocus class="btn btn-success" (click)="modal.close('Ok click')">OK</button>
-  </div>
+    <div class="modal-header">
+      <h5 class="modal-title" id="modal-title">Delete Confirmation</h5>
+      <button type="button" class="btn close" aria-label="Close button" aria-describedby="modal-title" (click)="dismissModal()">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Are you sure you want to delete?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">CANCEL</button>
+      <button type="button" ngbAutofocus class="btn btn-success" (click)="confirmDelete()">OK</button>
+    </div>
   `,
 })
 
 export class NgModalConfirm {
   constructor(public modal: NgbActiveModal) { }
+  dismissModal() {
+    this.modal.dismiss('Cross click');
+  }
+  confirmDelete() {
+    this.modal.close('Ok click');
+  }
 }
 
 const MODALS: { [name: string]: Type<any> } = {
@@ -47,10 +54,64 @@ export class HomeComponent implements OnInit {
     OrderByColumn: null as string | null, // column name
     OrderBy: null as boolean | null //bool
   };
+  @ViewChild('bulkAddModal') bulkAddModal: any;
+  bulkAddForm!: FormGroup; // Define form group for bulk add
+  submitted = false;
   constructor(private router: Router,
               private modalService: NgbModal,
               private toastr: ToastrService,
-              private httpProvider : HttpProviderService) { }
+              private httpProvider : HttpProviderService,
+              private formBuilder: FormBuilder
+  ) {
+    this.bulkAddForm = this.formBuilder.group({
+      numberOfDrivers: ['', [Validators.required, Validators.min(1), Validators.max(10)]] // Add validation for number of drivers
+    });
+  }
+
+  // Convenience getter for easy access to form fields
+  get f() { return this.bulkAddForm.controls; }
+
+  // Method to handle form submission
+  onSubmit() {
+    this.submitted = true;
+
+    // Stop here if form is invalid
+    if (this.bulkAddForm.invalid) {
+      return;
+    }
+
+    // Form is valid, proceed with your logic here
+    const count = this.bulkAddForm.value.numberOfDrivers;
+    this.BulkRandomDriversInsertion(count);
+  }
+
+  // Open modal for bulk adding drivers
+  // Open modal for bulk adding drivers
+  openBulkAddModal(content: any) {
+
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      if (result === 'save') {
+        if (this.bulkAddForm.invalid) {
+          return;
+        }
+        const count = this.bulkAddForm.value.numberOfDrivers;
+        this.BulkRandomDriversInsertion(count);
+      } else {
+        this.resetForm();
+      }
+    }, (reason) => {
+      this.resetForm();
+      console.log(`Dismissed with reason: ${reason}`);
+    });
+  }
+
+
+
+
+  resetForm() {
+    this.bulkAddForm.reset();
+    this.submitted = false;
+  }
 
   ngOnInit(): void {
     this.getAllDrivers(this.model );
@@ -139,17 +200,16 @@ export class HomeComponent implements OnInit {
 
   BulkRandomDriversInsertion(count: any) {
     this.httpProvider.CreateRandomDriversBulk(count).subscribe((data : any) => {
-          debugger
           if (data != null && data.body != null) {
             var resultData = data;
-            if (resultData != null && resultData.body.result > 0) {
-              this.toastr.success("Driver deleted successfully");
+            if (resultData != null && resultData.body.rowsInserted > 0) {
+              this.toastr.success("Drivers Added successfully");
+              this.modalService.dismissAll();
               this.getAllDrivers(this.model);
             }
           }
         },
         (error : any) => {
-          debugger
           console.log(error);
           this.toastr.error("Error occurred while Adding Random drivers Bulk");
         });
