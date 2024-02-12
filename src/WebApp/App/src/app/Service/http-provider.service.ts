@@ -9,6 +9,7 @@ var httpLink = {
   deleteDriver: apiUrl + "/drivers",
   getDriverById: apiUrl + "/drivers/",
   createDriver: apiUrl + "/drivers",
+  updateDriver: apiUrl + "/drivers",
   randomBulkSeed: apiUrl + "/drivers/random-bulk-seed"
 }
 
@@ -43,13 +44,16 @@ export class HttpProviderService {
     return this.webApiService.get(url);
   }
   public deleteDriver(model: any): Observable<any> {
-    return this.webApiService.post(httpLink.deleteDriver + '?Id=' + model, "");
+    return this.webApiService.delete(httpLink.deleteDriver + '?Id=' + model);
   }
   public getDriverById(model: any): Observable<any> {
     return this.webApiService.get(httpLink.getDriverById + model);
   }
   public createDriver(model: any): Observable<any> {
     return this.webApiService.post(httpLink.createDriver, model);
+  }
+  public updateDriver(model: any): Observable<any> {
+    return this.webApiService.put(httpLink.updateDriver, model);
   }
   public CreateRandomDriversBulk(model: any): Observable<any> {
     return this.webApiService.post(httpLink.randomBulkSeed, model);
