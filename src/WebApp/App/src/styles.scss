@@ -2,6 +2,23 @@
 @import "bootstrap";
 /* based on angular-toastr css https://github.com/Foxandxss/angular-toastr/blob/cb508fe6801d6b288d3afc525bb40fee1b101650/dist/angular-toastr.css */
 
+.error-message {
+  margin-top: 5px;
+  font-size: 12px;
+  color: darkred;
+}
+.alert {
+  margin: 5px auto;
+  font-size: 12px;
+  display: flex; /* Use flexbox */
+  align-items: center; /* Vertically center items */
+  height: 10px; /* This height might need adjustment based on your design */
+}
+.alert .validationError {
+  font-weight: bold; /* Add bold to the error message */
+}
+
+
 /* position */
 .toast-center-center {
   top: 50%;

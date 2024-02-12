@@ -55,11 +55,8 @@ export class HttpProviderService {
   public updateDriver(model: any): Observable<any> {
     return this.webApiService.put(httpLink.updateDriver, model);
   }
-  public CreateRandomDriversBulk(count: number): Observable<any> {
-    const formData = new FormData();
-    formData.append("Count", count.toString());
-    console.log(formData);
-    return this.webApiService.post(httpLink.randomBulkSeed, formData);
+  public CreateRandomDriversBulk(model: any): Observable<any> {
+    return this.webApiService.post(httpLink.randomBulkSeed, model);
   }
 
 }

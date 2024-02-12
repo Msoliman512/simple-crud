@@ -199,7 +199,10 @@ export class HomeComponent implements OnInit {
   }
 
   BulkRandomDriversInsertion(count: any) {
-    this.httpProvider.CreateRandomDriversBulk(count).subscribe((data : any) => {
+    const formData = new FormData();
+    formData.append("Count", count.toString());
+    console.log(formData);
+    this.httpProvider.CreateRandomDriversBulk(formData).subscribe((data : any) => {
           if (data != null && data.body != null) {
             var resultData = data;
             if (resultData != null && resultData.body.rowsInserted > 0) {
