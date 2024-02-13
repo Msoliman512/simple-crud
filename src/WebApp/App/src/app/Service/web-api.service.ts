@@ -73,9 +73,6 @@ export class WebApiService {
   // Param 2: model
   put(url: string, model: any): Observable<any> {
     const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      }),
       observe: "response" as 'body'
     };
     return this.httpClient.put(
