@@ -14,7 +14,7 @@
 
       .table-title {
         padding-bottom: 15px;
-        background: #64437d;
+        background: #7DA2A9;
         color: #fff;
         padding: 16px 30px;
         min-width: 100%;
@@ -26,7 +26,7 @@
           font-size: 13px;
           border: none;
           min-width: 50px;
-          border-radius: 2px;
+          border-radius: 3px;
           border: none;
           outline: none !important;
           margin-left: 10px;
@@ -93,7 +93,7 @@
 }
 
 .reset-btn {
-  background-color: darkorange; /* Change background color to red */
+  background-color: coral; /* Change background color to red */
   color: white; /* Change text color to white */
   border: none;
   margin-left: 10px; /* Adjust spacing between search input and reset button */
@@ -119,7 +119,7 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background-color: orange; /* Change background color to orange */
+  background-color: #7DA2A9; /* Change background color to orange */
   color: #fff;
   text-align: center;
   line-height: 30px;
@@ -128,7 +128,7 @@
 }
 
 .pagination-btn {
-  background-color: #007bff; /* Adjust as needed */
+  background-color: darkslategrey; /* Adjust as needed */
   color: #fff;
   border: none;
   padding: 6px 12px; /* Adjust padding */
@@ -168,9 +168,13 @@
   background-color: #f8f9fa; /* Adjust hover color */
 }
 
+.fa-sort
+{
+color: darkcyan;
+}
 .fa-sort-up,
 .fa-sort-down {
-  color: blue; /* Set color to blue */
+  color: cyan; /* Set color to blue */
 }
 
 /* CSS to enhance the close button in the modal */
