@@ -14,6 +14,7 @@
       </div>
       <form #driverForm="ngForm">
         <div class="table-content">
+          <!-- First Name -->
           <div class="form-group p-10 row">
             <div class="col-sm-3">
               <label for="FirstName" class="p-t-b-10">First Name<span class="requiredStar">*</span></label>
@@ -21,13 +22,14 @@
             <div class="col-sm-9">
               <input type="text" class="form-control" id="FirstName" required maxlength="255"
                      [(ngModel)]="addDriverForm.FirstName" name="FirstName" #FirstName="ngModel">
-              <div *ngIf="FirstName.errors && isSubmitted" class="alert alert-danger validationError">
+              <div *ngIf="FirstName.errors && (FirstName.touched || isSubmitted)" class="alert alert-danger validationError">
                 <div [hidden]="!FirstName.errors?.['required']">
                   First Name is required
                 </div>
               </div>
             </div>
           </div>
+          <!-- Last Name -->
           <div class="form-group p-10 row">
             <div class="col-sm-3">
               <label for="LastName" class="p-t-b-10">Last Name<span class="requiredStar">*</span></label>
@@ -35,13 +37,14 @@
             <div class="col-sm-9">
               <input type="text" class="form-control" id="LastName" required maxlength="255"
                      [(ngModel)]="addDriverForm.LastName" name="LastName" #LastName="ngModel">
-              <div *ngIf="LastName.errors && isSubmitted" class="alert alert-danger validationError">
+              <div *ngIf="LastName.errors && (LastName.touched || isSubmitted)" class="alert alert-danger validationError">
                 <div [hidden]="!LastName.errors?.['required']">
                   Last Name is required
                 </div>
               </div>
             </div>
           </div>
+          <!-- Email -->
           <div class="form-group p-10 row">
             <div class="col-sm-3">
               <label class="p-t-b-10">Email<span class="requiredStar">*</span></label>
@@ -50,16 +53,17 @@
               <input type="text" class="form-control" id="Email" required maxlength="255"
                      [(ngModel)]="addDriverForm.Email" name="Email" #Email="ngModel"
                      pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9]{2,3}$">
-              <div *ngIf="Email.errors && isSubmitted" class="alert alert-danger validationError">
+              <div *ngIf="Email.errors && (Email.touched || isSubmitted)" class="alert alert-danger validationError">
                 <div [hidden]="!Email.errors?.['required']">
                   Email is required
                 </div>
-                <div [hidden]="!Email.errors?.['touched'] && !Email.errors?.['pattern']">
+                <div [hidden]="!Email.errors?.['pattern']">
                   Email is invalid
                 </div>
               </div>
             </div>
           </div>
+          <!-- Phone Number -->
           <div class="form-group p-10 row">
             <div class="col-sm-3">
               <label class="p-t-b-10">Phone Number</label>
@@ -67,8 +71,8 @@
             <div class="col-sm-9">
               <input type="text" class="form-control" id="PhoneNumber" maxlength="15"
                      [(ngModel)]="addDriverForm.PhoneNumber" name="PhoneNumber" #PhoneNumber="ngModel" pattern="^\d{1,15}$">
-              <div *ngIf="PhoneNumber.errors && isSubmitted" class="alert alert-danger validationError">
-                <div [hidden]="!PhoneNumber.errors?.['touched'] && !PhoneNumber.errors?.['pattern']">
+              <div *ngIf="PhoneNumber.errors && (PhoneNumber.touched || isSubmitted)" class="alert alert-danger validationError">
+                <div [hidden]="!PhoneNumber.errors?.['pattern']">
                   Phone Number is invalid
                 </div>
               </div>
