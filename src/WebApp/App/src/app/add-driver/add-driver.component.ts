@@ -39,8 +39,13 @@ export class AddDriverComponent {
             }
         },
         async error => {
-        console.log(error);
-          this.toastr.error("Error while adding driver");
+          console.log(error);
+          if(error.error && error.status == 400) {
+            this.toastr.error(error.error.message);
+          }
+          else{
+            this.toastr.error("Error while Adding driver");
+          }
           setTimeout(() => {
             this.router.navigate(['/Home']);
           }, 500);
