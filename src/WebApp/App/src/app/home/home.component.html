@@ -84,8 +84,11 @@
           </td>
         </tr>
         <tr>
-          <td *ngIf="driversList.length == 0" colspan="6">No driver Found</td>
+          <td *ngIf="driversList.length == 0" colspan="6" style="text-align: center; padding: 20px; font-weight: bold; color: #333; font-size: 18px;">
+            <i class="fas fa-exclamation-circle"></i> No drivers Found
+          </td>
         </tr>
+
         </tbody>
       </table>
         <!-- Pagination controls -->
