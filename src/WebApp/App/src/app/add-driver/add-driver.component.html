@@ -66,9 +66,9 @@
             </div>
             <div class="col-sm-9">
               <input type="text" class="form-control" id="PhoneNumber" maxlength="15"
-                     [(ngModel)]="addDriverForm.PhoneNumber" name="Phone" #Phone="ngModel" pattern="^\d{1,15}$">
-              <div *ngIf="Phone.errors && isSubmitted" class="alert alert-danger validationError">
-                <div [hidden]="!Phone.errors?.['touched'] && !Phone.errors?.['pattern']">
+                     [(ngModel)]="addDriverForm.PhoneNumber" name="PhoneNumber" #PhoneNumber="ngModel" pattern="^\d{1,15}$">
+              <div *ngIf="PhoneNumber.errors && isSubmitted" class="alert alert-danger validationError">
+                <div [hidden]="!PhoneNumber.errors?.['touched'] && !PhoneNumber.errors?.['pattern']">
                   Phone Number is invalid
                 </div>
               </div>
