@@ -1,1 +1,40 @@
-<p>view-driver works!</p>
+<div class="container-xl">
+  <div class="table-responsive">
+    <div class="table-wrapper">
+      <div class="table-title">
+        <div class="row">
+          <div class="col-sm-6">
+            <h4><b>View Driver</b></h4>
+          </div>
+          <div class="col-sm-6">
+            <a href="#" routerLink="/Home" class="btn btn-success back"><i class='fas fa-arrow-circle-left'></i> &nbsp;Back</a>
+          </div>
+        </div>
+      </div>
+      <table class="table table-striped table-hover table-bordered table-content">
+      <tbody>
+      <tr>
+        <td><label><b>First Name</b></label></td>
+        <td><span>{{ driverDetail.firstName }}</span></td>
+      </tr>
+      <tr>
+        <td><label><b>Last Name</b></label> </td>
+        <td><span>{{ driverDetail.lastName }}</span></td>
+      </tr>
+      <tr>
+        <td> <label><b>Alphabetized FullName</b></label></td>
+        <td> <span>{{ driverDetail.alphabetizedFullName }}</span></td>
+      </tr>
+      <tr>
+        <td> <label><b>Email</b></label></td>
+        <td> <span>{{ driverDetail.email }}</span></td>
+      </tr>
+      <tr>
+        <td> <label><b>Phone Number</b></label></td>
+        <td><span>{{ driverDetail.phoneNumber }}</span></td>
+      </tr>
+      </tbody>
+      </table>
+    </div>
+  </div>
+</div>
