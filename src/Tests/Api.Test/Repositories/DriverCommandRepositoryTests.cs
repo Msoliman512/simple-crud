@@ -1,6 +1,4 @@
 
-
-
 public class DriverCommandRepositoryTests
 {
     // CreateDriver method inserts a new driver into the database and returns the driver ID
