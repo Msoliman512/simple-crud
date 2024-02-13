@@ -20,12 +20,10 @@
         min-width: 100%;
         margin: -20px -25px 10px;
         border-radius: 3px 3px 0 0;
-        .back {
-          float: right;
-          text-transform: uppercase;
-          font-size: 13px !important;
-        }
+        display: flex; /* Use flexbox to align items */
+        justify-content: space-between; /* Align items with space between */
       }
+
       .table-content {
         margin-top: 30px;
         .padding10 {
@@ -47,5 +45,25 @@
         }
       }
     }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .container-xl {
+    width: 80%; /* Adjust the width for smaller screens */
+    margin-top: 20%; /* Adjust margin-top for smaller screens */
+  }
+
+  .table-wrapper {
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+  }
+
+  .table-content {
+    min-width: 100%; /* Ensure the table content fills the entire width */
+    table-layout: fixed; /* Fix table layout to prevent content from overflowing */
+  }
+
+  .table-content td {
+    word-wrap: break-word; /* Allow cell content to wrap */
   }
 }

@@ -13,7 +13,9 @@
             <button class="btn btn-success" (click)="openBulkAddModal(bulkAddModal)">
               <i class='fa fa-users'></i><span>Add Random bulk</span>
             </button>
-
+            <button class="btn btn-dark" (click)="uploadTask()">
+              <i class="fas fa-file-upload"></i><span>Upload File</span>
+            </button>
             <!-- Bulk Add Drivers Modal -->
             <ng-template #bulkAddModal let-modal>
               <div class="modal-header">

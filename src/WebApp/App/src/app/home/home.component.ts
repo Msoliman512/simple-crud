@@ -218,4 +218,8 @@ export class HomeComponent implements OnInit {
         });
   }
 
+  uploadTask() {
+    this.router.navigate(['UploadTask']);
+  }
+
 }

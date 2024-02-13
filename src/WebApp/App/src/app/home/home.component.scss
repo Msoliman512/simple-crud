@@ -41,6 +41,7 @@
           }
         }
       }
+      
       .table-content {
         .center-align{
           text-align: center;
@@ -204,4 +205,10 @@ color: darkcyan;
   transition: transform 0.2s ease-in-out; /* Add transition effect */
 }
 
+@media only screen and (max-width: 768px) {
+  .container-xl {
+    width: 80%;
+    margin-top: 20%;
+  }
+}
 
