@@ -32,7 +32,7 @@ public class DriverValidationService(DbContext context, ILogger<DriverValidation
         {
             using (var connection = context.CreateConnection())
             { 
-                var count =  await connection.ExecuteAsync(query,  parameters);
+                var count =  await connection.QueryFirstOrDefaultAsync<int>(query,  parameters);
                 if (count > 0)
                 {
                     throw new CustomException("Email already exists.");
@@ -73,7 +73,7 @@ public class DriverValidationService(DbContext context, ILogger<DriverValidation
         {
             using (var connection = context.CreateConnection())
             { 
-                var count =  await connection.ExecuteAsync(query,  parameters);
+                var count =  await connection.QueryFirstOrDefaultAsync<int>(query,  parameters);
                 if (count > 0)
                 {
                     throw new CustomException("Phone number already exists.");
