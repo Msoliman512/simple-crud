@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import {AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/forms';
+import { LoggingService } from '../Service/logging.service';
 
 @Component({
   selector: 'app-upload-task',
@@ -16,20 +17,22 @@ export class UploadTaskComponent {
 
   @ViewChild('fileInput') fileInput!: ElementRef;
 
-  constructor() { }
+  constructor(public loggingService: LoggingService ) { }
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
-
+    this.loggingService.logEvent('File selected', file.name);
     // Check if no file is selected
     if (!file) {
       this.fileControl.setErrors({ 'required': true });
+      this.loggingService.logInfo('No file selected');
       return;
     }
 
     // Check if the file has a valid extension (.txt)
     if (!this.isValidFileExtension(file.name)) {
       this.fileControl.setErrors({ 'invalidExtension': true });
+      this.loggingService.logInfo('Invalid File selected (Invalid Extension)', file.name);
       this.fileInput.nativeElement.value = ''; // Reset input value
       this.fileContent = ''; // Reset file content
       return;
@@ -37,7 +40,7 @@ export class UploadTaskComponent {
 
     // If the file is valid, clear any existing errors
     this.fileControl.setErrors(null);
-    
+    this.loggingService.logInfo('valid File selected', file.name);
     const reader: FileReader = new FileReader();
 
     reader.onload = (e: any) => {
@@ -47,6 +50,7 @@ export class UploadTaskComponent {
 
     reader.onerror = (e: ProgressEvent<FileReader>) => {
       alert('Error reading file. Please make sure the file is not empty and try again.');
+      this.loggingService.logError('Error Reading file', file.name);
     };
 
     reader.readAsText(file);
@@ -67,14 +71,16 @@ export class UploadTaskComponent {
   isValidFileExtension(fileName: string): boolean {
     const allowedExtensions = ['txt'];
     const fileExtension = fileName.slice((fileName.lastIndexOf('.') - 1 >>> 0) + 2);
-
     return allowedExtensions.includes(fileExtension.toLowerCase());
   }
 
   countWords() {
     const words = this.fileContent.toString().toLowerCase().split(/\s+/).filter(Boolean);
     if(words.length === 0)
-       this.fileContent = 'No content';
+    {
+      this.fileContent = 'No content';
+      this.loggingService.logInfo('Empty File');
+    }
     this.wordCountMap.clear();
     words.forEach(word => {
       this.wordCountMap.set(word, (this.wordCountMap.get(word) || 0) + 1);
@@ -87,8 +93,8 @@ export class UploadTaskComponent {
     if (this.uploadProgress < 100) {
       setTimeout(() => {
         this.uploadProgress = Math.min((loaded / total) * 100, 100);
-        this.updateProgress(loaded, total); // Call the function recursively
-      }, 200); // Increase the delay to slow down the progress update
+        this.updateProgress(loaded, total); 
+      }, 200);
     }
   }
 
@@ -98,5 +104,6 @@ export class UploadTaskComponent {
     this.wordCountMap.clear();
     this.isUploading = false;
     this.uploadProgress = 0;
+    this.loggingService.logEvent('File reset');
   }
 }
