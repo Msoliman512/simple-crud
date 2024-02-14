@@ -33,7 +33,7 @@ import { UploadTaskComponent } from './upload-task/upload-task.component';
     ToastrModule.forRoot({positionClass: 'toast-bottom-right'}),
     BrowserAnimationsModule,
     AppRoutingModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideClientHydration()

@@ -5,10 +5,27 @@
   width: 50%;
 }
 
+/* Styles for smaller screens */
 @media only screen and (max-width: 768px) {
   .container-xl {
     width: 80%;
     margin-top: 20%;
+  }
+
+  .table-title {
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    padding: 16px;
+  }
+
+  .upload-btn-wrapper {
+    margin-top: 0px !important;
+
+  }
+
+  .btn {
+    margin-top: 0px !important;
   }
 }
 
@@ -71,3 +88,82 @@
   color: red;
   padding-left: 5px;
 }
+
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.word-box {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.word-box p {
+  margin-bottom: 10px;
+}
+
+.word-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.word-list li {
+  margin-bottom: 8px;
+}
+
+.word-list li span:first-child {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.word-list li span:last-child {
+  color: #777;
+}
+
+.custom-upload-btn {
+  text-align: center;
+  border: 1px solid #7DA2A9;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  margin: 0 ; /* Add this line to center the button horizontally */
+}
+
+.reset-btn {
+  background: #808080; /* Grey background */
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+  color: #fff; /* White text color */
+  font-size: .6em;
+  border-radius: 50%; /* Make it circular */
+  width: 15px; /* Set a specific width */
+  height: 15px; /* Set a specific height */
+  display: flex; /* Use flexbox for centering */
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
+}
+
+.reset-btn:hover {
+  background: #8B0000; /* Dark red background on hover */
+}
+
+.upload-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.error-message {
+  color: darkred;
+  margin-left: 10px;
+}
+

@@ -3,9 +3,46 @@
     <div class="table-wrapper">
       <div class="table-title">
         <h4><b>Upload Task</b></h4>
+
         <a href="#" routerLink="/Home" class="btn btn-success back"><i class='fas fa-arrow-circle-left'></i> Back</a>
       </div>
-      <p>upload-task works!</p>
+      <div class="upload-container">
+        <input class="custom-upload-btn" #fileInput type="file" (change)="onFileSelected($event)" accept="text/plain">
+        <button *ngIf="!isUploading && fileContent" class="reset-btn" (click)="resetFile()"><i class="fas fa-times"></i></button>
+      </div>
+      <div *ngIf="fileControl?.touched && fileControl.hasError('required')" class="alert alert-danger validationError">Please select a file.</div>
+      <div *ngIf="fileControl.hasError('invalidExtension')" class="alert alert-danger validationError">Invalid file type. Only .txt files are allowed.</div>
+      <!-- Section for displaying message when no file is uploaded -->
+      <div *ngIf="!isUploading && !fileContent">
+        <p style="text-align: center; padding: 20px; font-weight: bold; color: #333; font-size: 18px;">
+          <i class="fas fa-exclamation-circle"></i> No file uploaded yet
+        </p>
+      </div>
+
+      <!-- Section for displaying message when a file has been uploaded but it's empty -->
+      <div *ngIf="!isUploading && fileContent && fileContent == 'No content' ">
+        <p style="text-align: center; padding: 20px; font-weight: bold; color: #333; font-size: 18px;">
+          <i class="fa fa-ban"></i> No Data
+        </p>
+      </div>
+
+      <div *ngIf="isUploading">
+        <progress max="100" [value]="uploadProgress"></progress>
+        <span>{{ uploadProgress.toFixed(1) }}%</span>
+      </div>
+      <div *ngIf="!isUploading && fileContent && wordCountMap.size > 0">
+        <div class="word-box">
+          <p><strong>File Content:</strong></p>
+          <pre>{{ fileContent }}</pre>
+          <br>
+          <p><strong>Word Count:</strong></p>
+          <ul class="word-list">
+            <li *ngFor="let word of wordCountMap.keys()">
+              <span>{{ word }}:</span> <span>{{ wordCountMap.get(word) }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </div>
