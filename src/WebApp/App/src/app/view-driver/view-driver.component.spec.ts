@@ -1,23 +1,32 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+// view-driver.component.spec.ts
+import { TestBed, async } from '@angular/core/testing';
 import { ViewDriverComponent } from './view-driver.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrModule } from 'ngx-toastr';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('ViewDriverComponent', () => {
-  let component: ViewDriverComponent;
-  let fixture: ComponentFixture<ViewDriverComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [ViewDriverComponent]
-    })
-    .compileComponents();
-    
-    fixture = TestBed.createComponent(ViewDriverComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule,
+        HttpClientTestingModule,
+        NgbModule,
+        ToastrModule.forRoot(),
+        FormsModule,
+        ReactiveFormsModule
+      ],
+      declarations: [
+        ViewDriverComponent
+      ],
+    }).compileComponents();
+  }));
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    const fixture = TestBed.createComponent(ViewDriverComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app).toBeTruthy();
   });
 });

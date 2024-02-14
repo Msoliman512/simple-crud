@@ -9,9 +9,10 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'App';
+  title = 'Drivers Management';
   constructor(private router: Router) { }
   HomeClick(){
+
     this.router.navigate(['Home']);
   }
 }
