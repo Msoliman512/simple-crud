@@ -30,15 +30,15 @@
         <progress max="100" [value]="uploadProgress"></progress>
         <span>{{ uploadProgress.toFixed(1) }}%</span>
       </div>
-      <div *ngIf="!isUploading && fileContent && wordCountMap.size > 0">
+      <div *ngIf="!isUploading && fileContent && getObjectKeys(wordCountMap).length > 0">
         <div class="word-box">
           <p><strong>File Content:</strong></p>
           <pre>{{ fileContent }}</pre>
           <br>
           <p><strong>Word Count:</strong></p>
           <ul class="word-list">
-            <li *ngFor="let word of wordCountMap.keys()">
-              <span>{{ word }}:</span> <span>{{ wordCountMap.get(word) }}</span>
+            <li *ngFor="let word of getObjectKeys(wordCountMap)">
+              <span>{{ word }}:</span> <span>{{ wordCountMap[word] }}</span>
             </li>
           </ul>
         </div>
