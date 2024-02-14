@@ -23,14 +23,15 @@ export class UploadTaskComponent  {
   }
 
   onFileSelected(event: any) {
-    const file: File = event.target.files[0];
-    this.loggingService.logEvent('File selected', file.name);
     // Check if no file is selected
-    if (!file) {
+    if (event.target.files.length === 0) {
       this.fileControl.setErrors({'required': true});
       this.loggingService.logInfo('No file selected');
       return;
     }
+    
+    const file: File = event.target.files[0];
+    this.loggingService.logEvent('File selected', file.name);
 
     // Check if the file has a valid extension (.txt)
     if (!this.isValidFileExtension(file.name)) {
@@ -48,11 +49,11 @@ export class UploadTaskComponent  {
 
     reader.onload = (e: any) => {
             this.fileContent = e.target.result;
-            this.countWords();
+            this.countWords(this.fileContent as string);
     };
 
     reader.onerror = (e: ProgressEvent<FileReader>) => {
-      alert('Error reading file. Please make sure the file is not empty and try again.');
+      alert('Error reading file: Please make sure the file is valid and try again.');
       this.loggingService.logError('Error Reading file', file.name);
     };
 
@@ -78,8 +79,8 @@ export class UploadTaskComponent  {
     return allowedExtensions.includes(fileExtension.toLowerCase());
   }
 
-  countWords() {
-    const words = this.fileContent.toString().toLowerCase().split(/\s+/).filter(Boolean);
+  countWords(fileContent: string) {
+    const words = fileContent.toString().toLowerCase().split(/\s+/).filter(Boolean);
     if (words.length === 0) {
       this.fileContent = 'No content';
       this.loggingService.logInfo('Empty File');
