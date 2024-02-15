@@ -7,7 +7,7 @@ This project is a simple CRUD application developed using .NET Core 8 and Angula
 The application provides a user-friendly interface for managing drivers and includes features such as:
 
 - CRUD Operations: Create, Read, Update, and Delete driver records.
-- Verticle Slice Architecture: The backend is implemented - using the verticle slice architecture to ensure modularity and maintainability.
+- Verticle Slice Architecture: The backend is implemented - using the verticle slice architecture with CQRS to ensure modularity and maintainability.
 - Swagger Documentation: The backend APIs are fully documented using Swagger for easy integration and testing.
 - Upload File Component: Additionally, the Angular frontend includes an upload file component for uploading text files, which can be useful for various purposes.
 ## Demo
