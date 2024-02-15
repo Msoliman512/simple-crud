@@ -10,16 +10,16 @@ import {FormBuilder, FormGroup, Validators } from '@angular/forms';
   template: `
     <div class="modal-header">
       <h5 class="modal-title" id="modal-title">Delete Confirmation</h5>
-      <button type="button" class="btn close" aria-label="Close button" aria-describedby="modal-title" (click)="dismissModal()">
-        <span aria-hidden="true">×</span>
+      <button type="button" class="close" aria-label="Close" (click)="dismissModal()" style="position: absolute; top: 0; right: 0; z-index: 9999; padding: 0.5rem; margin: 0.5rem; background-color: transparent; border: 1px; cursor: pointer;" onmouseover="this.style.color='red';" onmouseout="this.style.color='';">
+        <span aria-hidden="true" style="font-size: 1.5rem;">&times;</span>
       </button>
     </div>
     <div class="modal-body">
       <p>Are you sure you want to delete?</p>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">CANCEL</button>
-      <button type="button" ngbAutofocus class="btn btn-success" (click)="confirmDelete()">OK</button>
+      <button type="button" class="btn btn-secondary" (click)="modal.dismiss('cancel click')">CANCEL</button>
+      <button type="button" ngbAutofocus class="btn btn-danger" (click)="confirmDelete()">OK</button>
     </div>
   `,
 })
