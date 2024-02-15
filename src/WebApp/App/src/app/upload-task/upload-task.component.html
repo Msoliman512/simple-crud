@@ -10,6 +10,7 @@
         <input class="custom-upload-btn" #fileInput type="file" (change)="onFileSelected($event)" accept="text/plain">
         <button *ngIf="!isUploading && fileContent" class="reset-btn" (click)="resetFile()"><i class="fas fa-times"></i></button>
       </div>
+      <div style="width: 100%;display: flex;justify-content: center;align-items: center;margin: 2px; font-size: 12px; color: blue"><span>only txt files allowed</span></div>
       <div *ngIf="fileControl?.touched && fileControl.hasError('required')" class="alert alert-danger validationError">Please select a file.</div>
       <div *ngIf="fileControl.hasError('invalidExtension')" class="alert alert-danger validationError">Invalid file type. Only .txt files are allowed.</div>
       <!-- Section for displaying message when no file is uploaded -->
