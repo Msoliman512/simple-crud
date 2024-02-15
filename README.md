@@ -1,4 +1,3 @@
-
 # Simple CRUD App for Drivers Management
 
 This project is a simple CRUD application developed using .NET Core 8 and Angular 17. It allows users to manage drivers by performing basic operations such as creating, editing, retrieving, and deleting driver records.
@@ -13,7 +12,7 @@ The application provides a user-friendly interface for managing drivers and incl
 - Upload File Component: Additionally, the Angular frontend includes an upload file component for uploading text files, which can be useful for various purposes.
 ## Demo
 
-DemoVideo
+https://github.com/Msoliman512/simple-crud/assets/60291327/9a1f84b3-33de-4d5a-9d70-7651a4f1501a
 
 ## Project Structure
 
